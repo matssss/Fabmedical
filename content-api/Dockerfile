@@ -4,8 +4,11 @@ WORKDIR /usr/src/app
 EXPOSE 3001
 FROM node:argon AS build
 WORKDIR /usr/src/app
-# Install app dependenciesCOPY package.json /usr/src/app/RUN npm install
-# Bundle app sourceCOPY . /usr/src/app
+# Install app dependencies
+COPY package.json /usr/src/app/
+RUN npm install
+# Bundle app source
+COPY . /usr/src/app
 FROM base AS final
 WORKDIR /usr/src/app
 COPY --from=build /usr/src/app .
